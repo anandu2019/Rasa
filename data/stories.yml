@@ -1,0 +1,25 @@
+version: "3.0"
+
+stories:
+
+
+
+- story: data
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - intent: location
+  - action: utter_location
+  - intent: restaurants
+  - action: utter_restaurant
+  - intent: FoodCategories
+  - action: utter_foodCategories
+  - intent: form
+  - action: details_form
+  - active_loop: details_form
+  - active_loop: null
+  - action: utter_submit
+  - action: utter_slots_values
+
+  
+ 

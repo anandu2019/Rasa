@@ -1,0 +1,140 @@
+version: "3.0"
+
+intents:
+  - greet
+  - goodbye
+  - affirm
+  - deny
+  - mood_great
+  - mood_unhappy
+  - bot_challenge
+  - location
+  - restaurants
+  - FoodCategories
+  - stop
+  - form
+
+
+responses:
+  utter_greet:
+  - text: "Hey! Welcome to Fooday Bot.Please enter your location"
+
+  utter_cheer_up:
+  - text: "Here is something to cheer you up:"
+    image: "https://i.imgur.com/nGF1K8f.jpg"
+
+  utter_did_that_help:
+  - text: "Did that help you?"
+
+  utter_happy:
+  - text: "Great, carry on!"
+
+  utter_goodbye:
+  - text: "Bye"
+
+  utter_iamabot:
+  - text: "I am a bot, powered by Rasa."
+
+  utter_wrong_username:
+  - text: "Please enter aa correct name"
+
+  utter_location:
+  - text: "Please  choose your restaurant"
+
+  utter_restaurant:
+  - text: "Please provide the food category"
+
+  utter_foodCategories:
+  - text: "Added to cart.Please provide your name for checkout process"                                                                                                                                               
+
+  utter_ask_username:
+  - text: "Please provide your mobilenumber"
+
+  utter_ask_mobilenumber:
+  - text: "Please enter your address"
+
+  utter_ask_address:
+  - text: "Please enter pincode"
+
+  utter_ask_pincode:
+  - text: ""
+
+  utter_submit:
+  - text: "Done!.Your order details are submitted"
+  
+  utter_slots_values:
+  - text: "Here is your order summary:\n
+             - username: {username}\n
+             - mobilenumber: {mobilenumber}\n
+             - address: {address}\n
+             - pincode: {pincode}"
+
+actions:
+- validate_details_form
+
+entities:
+  - username
+  - mobilenumber
+  - address
+  - pincode
+
+forms:
+  details_form:
+    required_slots:
+      - username
+      - mobilenumber
+      - address
+      - pincode
+
+slots:
+  username:
+    type: text
+    influence_conversation: false
+    mappings:
+    - type: from_entity
+      entity: username
+    - type: from_text
+      conditions:
+      - active_loop:  details_form
+        requested_slot: username
+      
+  mobilenumber:
+    type: text
+    influence_conversation: false
+    mappings:
+    - type: from_entity
+      entity: number
+
+    - type: from_text
+      conditions:
+      - active_loop:  details_form
+        requested_slot: mobilenumber
+
+
+  address:
+    type: text
+    influence_conversation: false
+    mappings:
+    - type: from_entity
+      entity: address
+    - type: from_text
+      conditions:
+      - active_loop:  details_form
+        requested_slot: address
+    
+
+  pincode:
+    type: text
+    influence_conversation: false
+    mappings:
+    - type: from_entity
+      entity: number
+      
+    - type: from_text
+      conditions:
+      - active_loop:  details_form
+        requested_slot: pincode
+   
+session_config:
+  session_expiration_time: 60
+  carry_over_slots_to_new_session: true

@@ -1,0 +1,29 @@
+version: "3.0"
+
+rules:
+
+- rule: Say goodbye anytime the user says goodbye
+  steps:
+  - intent: goodbye
+  - action: utter_goodbye
+
+- rule: Say 'I am a bot' anytime the user challenges
+  steps:
+  - intent: bot_challenge
+  - action: utter_iamabot
+
+- rule: activate restaurant form
+  steps:
+    - intent: form
+    - action: details_form
+    - active_loop:  details_form
+
+- rule: submit form
+  condition:
+  - active_loop:  details_form
+  steps:
+  - action:  details_form
+  - active_loop:  null
+  - action: utter_submit
+  - action: utter_slots_values
+
